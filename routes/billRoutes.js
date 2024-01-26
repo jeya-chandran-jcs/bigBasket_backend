@@ -25,10 +25,14 @@ router.get("/get-bill",async(req,res)=>{
 
 router.get("/get-one-bill", async (req, res) => {
     try {
-        const userId = req.query.userId; // Assuming the user ID is passed as a query parameter
-        const bills = await billModel.find({ userId });
+        const billId = req.query.billId; // Assuming _id is passed as a query parameter
+        const bill = await billModel.findById(billId);
 
-        res.send(bills);
+        if (!bill) {
+            return res.status(404).json({ error: "Bill not found" });
+        }
+
+        res.send(bill);
     } catch (err) {
         res.status(500).json({ error: "Internal Server Error" });
     }
