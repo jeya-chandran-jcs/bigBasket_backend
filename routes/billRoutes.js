@@ -7,7 +7,7 @@ router.post("/add-bill",async(req,res)=>{
      try{
         const newBill= new billModel(req.body)
         await newBill.save()
-        newBill ? res.send("bill created successfully") : res.send("bill not created")
+        newBill ? res.send(newBill) : res.send("bill not created")
     }catch(err){
         res.json(err)
     }
